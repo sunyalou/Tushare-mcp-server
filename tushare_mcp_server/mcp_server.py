@@ -29,6 +29,10 @@ class TushareMCPServer:
                 response = await self.client.get_stock_basic(params)
             elif name == "daily":
                 response = await self.client.get_daily(params)
+            elif name == "weekly":
+                response = await self.client.get_weekly(params)
+            elif name == "monthly":
+                response = await self.client.get_monthly(params)
             else:
                 raise ValueError(f"Unknown tool: {name}")
             
@@ -81,6 +85,32 @@ class TushareMCPServer:
                         "properties": {
                             "ts_code": {"type": "string", "description": "Stock code (e.g., 000001.SZ)"},
                             "trade_date": {"type": "string", "description": "Trade date (YYYYMMDD format)"},
+                            "start_date": {"type": "string", "description": "Start date (YYYYMMDD format)"},
+                            "end_date": {"type": "string", "description": "End date (YYYYMMDD format)"}
+                        }
+                    }
+                ),
+                Tool(
+                    name="weekly",
+                    description="Get weekly stock prices and trading data (requires 2000+ Tushare points)",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "ts_code": {"type": "string", "description": "Stock code (e.g., 000001.SZ)"},
+                            "trade_date": {"type": "string", "description": "Trade date (weekly last trading date, YYYYMMDD format)"},
+                            "start_date": {"type": "string", "description": "Start date (YYYYMMDD format)"},
+                            "end_date": {"type": "string", "description": "End date (YYYYMMDD format)"}
+                        }
+                    }
+                ),
+                Tool(
+                    name="monthly",
+                    description="Get monthly stock prices and trading data (requires 2000+ Tushare points)",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "ts_code": {"type": "string", "description": "Stock code (e.g., 000001.SZ)"},
+                            "trade_date": {"type": "string", "description": "Trade date (monthly last trading date, YYYYMMDD format)"},
                             "start_date": {"type": "string", "description": "Start date (YYYYMMDD format)"},
                             "end_date": {"type": "string", "description": "End date (YYYYMMDD format)"}
                         }

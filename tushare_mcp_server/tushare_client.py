@@ -56,3 +56,11 @@ class TushareClient:
     async def get_daily(self, params: Dict[str, Any], fields: Optional[str] = None) -> TushareResponse:
         """Get daily stock prices"""
         return await self._make_request("daily", params, fields)
+    
+    async def get_weekly(self, params: Dict[str, Any], fields: Optional[str] = None) -> TushareResponse:
+        """Get weekly stock prices"""
+        return await self._make_request("weekly", params, fields)
+    
+    async def get_monthly(self, params: Dict[str, Any], fields: Optional[str] = None) -> TushareResponse:
+        """Get monthly stock prices"""
+        return await self._make_request("monthly", params, fields)

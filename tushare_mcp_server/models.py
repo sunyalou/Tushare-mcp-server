@@ -28,3 +28,15 @@ class DailyParams(BaseModel):
     trade_date: Optional[str] = None
     start_date: Optional[str] = None
     end_date: Optional[str] = None
+
+class WeeklyParams(BaseModel):
+    ts_code: Optional[str] = None
+    trade_date: Optional[str] = None
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
+
+class MonthlyParams(BaseModel):
+    ts_code: Optional[str] = None
+    trade_date: Optional[str] = None
+    start_date: Optional[str] = None
+    end_date: Optional[str] = None
