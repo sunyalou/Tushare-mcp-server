@@ -1,0 +1,14 @@
+include README.md
+include requirements.txt
+include LICENSE
+include .env.example
+include claude-desktop-config.json
+include demo_simple.py
+include test_basic.py
+recursive-include api *.md
+recursive-include tushare_mcp_server *.py
+recursive-include bin *
+global-exclude __pycache__
+global-exclude *.pyc
+global-exclude *.pyo
+global-exclude .DS_Store
