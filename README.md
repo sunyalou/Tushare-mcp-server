@@ -1,14 +1,11 @@
 # Tushare MCP Server
 
-A comprehensive Model Context Protocol (MCP) server that provides AI assistants with access to Chinese financial market data through the Tushare API.
+A Model Context Protocol (MCP) server that provides AI assistants with access to Chinese stock market data through the Tushare API.
 
 ## 🌟 Features
 
-- **20+ Stock Data APIs** - Complete coverage of Chinese stock market data
-- **Real-time Market Data** - Daily, weekly, monthly stock prices and indicators
-- **Financial Statements** - Income, balance sheet, cash flow data
-- **Stock Connect Data** - Hong Kong and mainland China stock connect information
-- **Management Information** - Executive data and compensation
+- **Core Market Data APIs** - Basic stock information and price data
+- **Daily, Weekly, Monthly Prices** - Historical stock price data
 - **Full MCP Protocol Support** - Works with Claude Desktop and other MCP clients
 - **Professional Error Handling** - Robust API error management
 - **Type Safety** - Full Pydantic validation for all parameters
@@ -111,54 +108,49 @@ Add this configuration to your Claude Desktop settings:
 
 **Returns:** Open, high, low, close prices, volume, amount for each trading day
 
-### Example 3: Get Financial Statements
+### Example 3: Get Weekly Stock Data
 
-**User Query:** "Get the income statement for 000001.SZ for 2023"
+**User Query:** "Show me weekly data for 000001.SZ"
 
-**Claude will use:** `income` tool
+**Claude will use:** `weekly` tool
 
 **Parameters:**
 ```json
 {
   "ts_code": "000001.SZ",
-  "period": "20231231"
+  "start_date": "20240101",
+  "end_date": "20240131"
 }
 ```
 
-**Returns:** Revenue, profit, EPS, and other income statement data
+**Returns:** Weekly OHLC prices and trading volume
+
+### Example 4: Get Monthly Stock Data
+
+**User Query:** "Show me monthly data for 000001.SZ"
+
+**Claude will use:** `monthly` tool
+
+**Parameters:**
+```json
+{
+  "ts_code": "000001.SZ",
+  "start_date": "20240101",
+  "end_date": "20241231"
+}
+```
+
+**Returns:** Monthly OHLC prices and trading volume
 
 ## 🔧 Available Tools
 
 ### Stock Basic Information
 - **`stock_basic`** - Basic stock and company information
-- **`namechange`** - Historical name changes
-- **`new_share`** - IPO pipeline and new listings
 
 ### Market Data
 - **`daily`** - Daily stock prices (OHLC, volume, amount)
-- **`weekly`** - Weekly stock data
-- **`monthly`** - Monthly stock data
-- **`daily_basic`** - Fundamental indicators (PE, PB, PS ratios)
-- **`stk_limit`** - Daily price limits (up/down)
-
-### Financial Statements
-- **`income`** - Income statements
-- **`balancesheet`** - Balance sheets
-- **`cashflow`** - Cash flow statements
-- **`express`** - Flash financial results
-- **`forecast`** - Earnings forecasts
-
-### Trading & Market Info
-- **`trade_cal`** - Trading calendar and holidays
-
-### Stock Connect (Hong Kong)
-- **`ggt_daily`** - Daily Hong Kong Stock Connect statistics
-- **`ggt_top10`** - Top 10 Hong Kong Stock Connect stocks
-- **`hsgt_top10`** - Top 10 Shanghai/Shenzhen Stock Connect stocks
-
-### Corporate Governance
-- **`stk_managers`** - Management information
-- **`stk_rewards`** - Management compensation and holdings
+- **`weekly`** - Weekly stock data (requires 2000+ Tushare points)
+- **`monthly`** - Monthly stock data (requires 2000+ Tushare points)
 
 ## 📊 Stock Code Format
 
@@ -205,14 +197,11 @@ TUSHARE_TOKEN=your_token python -m tushare_mcp_server.main
 
 ## 📚 API Documentation
 
-Complete API documentation is available in the `api/` directory, including:
+API documentation is available in the `api/` directory for implemented endpoints:
 
 - **Authentication & Usage** (`api/authentication-usage.md`)
 - **Stock Basic Information** (`api/stock_basic.md`)
-- **Market Data** (`api/data_daily.md`, `api/data_weekly.md`, etc.)
-- **Financial Statements** (`api/finance_income.md`, `api/finance_balancesheet.md`, etc.)
-- **Trading Calendar** (`api/trade_cal.md`)
-- **Stock Connect** (`api/data_ggt_daily.md`, `api/data_ggt_top10.md`)
+- **Market Data** (`api/data_daily.md`, `api/data_weekly.md`, `api/data_monthly.md`)
 
 ## 📄 License
 
