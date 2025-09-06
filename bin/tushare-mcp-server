@@ -3,7 +3,8 @@
 Tushare MCP Server command line interface
 """
 import sys
+import asyncio
 from tushare_mcp_server.main import main
 
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(asyncio.run(main()))

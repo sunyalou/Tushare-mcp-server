@@ -6,10 +6,11 @@ This script shows basic usage without requiring user input.
 """
 
 import os
+import asyncio
 from tushare_mcp_server.models import StockBasicParams, DailyParams, TushareResponse
 from tushare_mcp_server.config import settings
 
-def simple_demo():
+async def simple_demo():
     """Simple demonstration of basic functionality"""
     print("🚀 Tushare MCP Server - Simple Demo")
     print("=" * 50)
@@ -31,7 +32,7 @@ def simple_demo():
         client = TushareClient(token)
         
         print("\n1️⃣ Testing stock basic info...")
-        response = client.get_stock_basic({"limit": 2})
+        response = await client.get_stock_basic({"limit": 2})
         if response.code == 0 and response.data:
             items = response.data.get('items', [])
             print(f"✅ Successfully retrieved {len(items)} stocks")
@@ -73,5 +74,9 @@ def show_examples():
     for tool in tools:
         print(f"  - {tool}")
 
+async def main():
+    """Main entry point with proper async support"""
+    await simple_demo()
+
 if __name__ == "__main__":
-    simple_demo()
+    asyncio.run(main())
