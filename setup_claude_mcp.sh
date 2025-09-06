@@ -24,14 +24,12 @@ else
 fi
 
 # Claude Desktop config path
-CLAUDE_CONFIG_DIR="$HOME/Library/Application Support/Claude"
-CLAUDE_CONFIG_FILE="$CLAUDE_CONFIG_DIR/config.json"
+CLAUDE_CONFIG_FILE="$HOME/.claude.json"
 
-# Check if Claude Desktop is installed
-if [ ! -d "$CLAUDE_CONFIG_DIR" ]; then
-    echo "❌ Claude Desktop config directory not found at: $CLAUDE_CONFIG_DIR"
-    echo "Please make sure Claude Desktop is installed and has been run at least once."
-    exit 1
+# Check if Claude Desktop config exists
+if [ ! -f "$CLAUDE_CONFIG_FILE" ]; then
+    echo "⚠️  Claude Desktop config file not found at: $CLAUDE_CONFIG_FILE"
+    echo "Creating new config file..."
 fi
 
 # Backup existing config if it exists
@@ -82,9 +80,6 @@ else
     # Create new config file
     cat > "$CLAUDE_CONFIG_FILE" << EOF
 {
-  "scale": 0,
-  "locale": "en-US", 
-  "userThemeMode": "system",
   "mcpServers": {
     "tushare": {
       "command": "python",
