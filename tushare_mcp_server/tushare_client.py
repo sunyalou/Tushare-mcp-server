@@ -64,3 +64,23 @@ class TushareClient:
     async def get_monthly(self, params: Dict[str, Any], fields: Optional[str] = None) -> TushareResponse:
         """Get monthly stock prices"""
         return await self._make_request("monthly", params, fields)
+    
+    async def get_index_daily(self, params: Dict[str, Any], fields: Optional[str] = None) -> TushareResponse:
+        """Get index daily prices and trading data"""
+        return await self._make_request("index_daily", params, fields)
+    
+    async def get_index_weekly(self, params: Dict[str, Any], fields: Optional[str] = None) -> TushareResponse:
+        """Get index weekly prices and trading data"""
+        return await self._make_request("index_weekly", params, fields)
+    
+    async def get_index_monthly(self, params: Dict[str, Any], fields: Optional[str] = None) -> TushareResponse:
+        """Get index monthly prices and trading data"""
+        return await self._make_request("index_monthly", params, fields)
+    
+    async def get_index_dailybasic(self, params: Dict[str, Any], fields: Optional[str] = None) -> TushareResponse:
+        """Get index daily basic indicators"""
+        return await self._make_request("index_dailybasic", params, fields)
+    
+    async def get_index_weight(self, params: Dict[str, Any], fields: Optional[str] = None) -> TushareResponse:
+        """Get index component weights"""
+        return await self._make_request("index_weight", params, fields)

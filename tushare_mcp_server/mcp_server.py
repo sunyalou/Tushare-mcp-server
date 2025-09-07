@@ -33,6 +33,16 @@ class TushareMCPServer:
                 response = await self.client.get_weekly(params)
             elif name == "monthly":
                 response = await self.client.get_monthly(params)
+            elif name == "index_daily":
+                response = await self.client.get_index_daily(params)
+            elif name == "index_weekly":
+                response = await self.client.get_index_weekly(params)
+            elif name == "index_monthly":
+                response = await self.client.get_index_monthly(params)
+            elif name == "index_dailybasic":
+                response = await self.client.get_index_dailybasic(params)
+            elif name == "index_weight":
+                response = await self.client.get_index_weight(params)
             else:
                 raise ValueError(f"Unknown tool: {name}")
             
@@ -111,6 +121,71 @@ class TushareMCPServer:
                         "properties": {
                             "ts_code": {"type": "string", "description": "Stock code (e.g., 000001.SZ)"},
                             "trade_date": {"type": "string", "description": "Trade date (monthly last trading date, YYYYMMDD format)"},
+                            "start_date": {"type": "string", "description": "Start date (YYYYMMDD format)"},
+                            "end_date": {"type": "string", "description": "End date (YYYYMMDD format)"}
+                        }
+                    }
+                ),
+                Tool(
+                    name="index_daily",
+                    description="Get index daily prices and trading data (requires 2000+ Tushare points)",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "ts_code": {"type": "string", "description": "Index code (e.g., 000001.SH, 399300.SZ)"},
+                            "trade_date": {"type": "string", "description": "Trade date (YYYYMMDD format)"},
+                            "start_date": {"type": "string", "description": "Start date (YYYYMMDD format)"},
+                            "end_date": {"type": "string", "description": "End date (YYYYMMDD format)"}
+                        }
+                    }
+                ),
+                Tool(
+                    name="index_weekly",
+                    description="Get index weekly prices and trading data (requires 600+ Tushare points)",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "ts_code": {"type": "string", "description": "Index code (e.g., 000001.SH, 399300.SZ)"},
+                            "trade_date": {"type": "string", "description": "Trade date (weekly last trading date, YYYYMMDD format)"},
+                            "start_date": {"type": "string", "description": "Start date (YYYYMMDD format)"},
+                            "end_date": {"type": "string", "description": "End date (YYYYMMDD format)"}
+                        }
+                    }
+                ),
+                Tool(
+                    name="index_monthly",
+                    description="Get index monthly prices and trading data (requires 600+ Tushare points)",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "ts_code": {"type": "string", "description": "Index code (e.g., 000001.SH, 399300.SZ)"},
+                            "trade_date": {"type": "string", "description": "Trade date (monthly last trading date, YYYYMMDD format)"},
+                            "start_date": {"type": "string", "description": "Start date (YYYYMMDD format)"},
+                            "end_date": {"type": "string", "description": "End date (YYYYMMDD format)"}
+                        }
+                    }
+                ),
+                Tool(
+                    name="index_dailybasic",
+                    description="Get index daily basic indicators like PE, PB, turnover rate (requires 400+ Tushare points)",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "ts_code": {"type": "string", "description": "Index code (e.g., 000001.SH, 399300.SZ)"},
+                            "trade_date": {"type": "string", "description": "Trade date (YYYYMMDD format)"},
+                            "start_date": {"type": "string", "description": "Start date (YYYYMMDD format)"},
+                            "end_date": {"type": "string", "description": "End date (YYYYMMDD format)"}
+                        }
+                    }
+                ),
+                Tool(
+                    name="index_weight",
+                    description="Get index component weights and constituents (requires 2000+ Tushare points)",
+                    inputSchema={
+                        "type": "object",
+                        "properties": {
+                            "index_code": {"type": "string", "description": "Index code, source from index basic info interface"},
+                            "trade_date": {"type": "string", "description": "Trade date (YYYYMMDD format)"},
                             "start_date": {"type": "string", "description": "Start date (YYYYMMDD format)"},
                             "end_date": {"type": "string", "description": "End date (YYYYMMDD format)"}
                         }
